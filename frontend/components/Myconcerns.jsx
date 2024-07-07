@@ -43,7 +43,7 @@ return (
         ) : (
         <div className='concern-container'>
             {concerns.map((concern, index) => (
-                <ConcernCard key={index} data={{title:concern.title,description:concern.description,image:concern.images,location:concern.location,block:concern.block,progress:concern.state}}/>
+                <ConcernCard key={index} data={{title:concern.title,description:concern.description,image:concern.images,location:concern.location,block:concern.block,progress:concern.state,public:concern.public}}/>
             ))}
         </div>
 )}
