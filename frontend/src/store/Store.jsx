@@ -2,10 +2,18 @@ import { useContext,createContext,useState } from 'react'
 
 const ContextProvider=createContext();
 export const Context=({children})=>{
-    //states
     const [login,setlogin]=useState(false)
     const [admin,setadmin]=useState(false)
     const [message,setmessage]=useState('')
+    const [refresh,setrefresh]=useState(false)
+    const [index,setindex]=useState(0)
+    const [userdata,setuserdata]=useState({concerns:[]})
+    const setIndex=(data)=>{
+        setindex(data)
+    }
+    const setUserData=(data)=>{
+        setuserdata(data)
+    }
     const setNewMessage=(data)=>{
         setmessage(data)
     }
@@ -15,8 +23,11 @@ export const Context=({children})=>{
     const setLogin=(data)=>{
         setlogin(data);
     }
+    const setRefresh=(data)=>{
+        setrefresh(data)
+    }
     return (
-        <ContextProvider.Provider value={{login,setLogin,admin,setAdmin,message,setNewMessage}}>
+        <ContextProvider.Provider value={{login,setLogin,admin,setAdmin,message,setNewMessage,refresh,setRefresh,userdata,setUserData,index,setIndex}}>
         {children}
         </ContextProvider.Provider>
     )
