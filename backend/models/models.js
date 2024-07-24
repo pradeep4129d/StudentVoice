@@ -10,10 +10,10 @@ const concernSchema=mongoose.Schema({
         type:String
     },
     location:{type:String,default:0},
-    upvotes:{type:Number},
     block:{type:String},
-    state:{type:String,default:"posted"
-    }
+    state:{type:String,default:"Not Seen Yet"},
+    public:{type:Boolean,default:true},
+    likeCount:{type:Number,default:0}
 },{timestamps:true})
 const userSchema=mongoose.Schema({
     username:{
@@ -26,7 +26,8 @@ const userSchema=mongoose.Schema({
         required:true,
         unique:true
     },
-    concerns:[{type:concernSchema,default:[]}]
+    concerns:[{type:concernSchema,default:[]}],
+    liked:[{type:String,default:[]}]
 })
 const feedbackSchema=mongoose.Schema({
     title:{
