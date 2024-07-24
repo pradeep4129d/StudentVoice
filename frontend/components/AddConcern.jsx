@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useStore from '../src/store/Store'
 import { Loading } from './Loading'
 import { useNavigate } from 'react-router-dom'
 
-export const AddConcern = () => {
-    const [concern,setConcern]=useState({title:'',description:'',block:'1',location:'',images:[]})
+export const AddConcern = (props) => {
+    const {setNewMessage,setUserData,userdata,index,refresh,setRefresh}=useStore()
+    const [concern,setConcern]=useState({title:'',description:'',block:'1',location:'',images:[],index:(props.data.new)?'':index,concernId:(props.data.new)?'':userdata.concerns[index]._id})
     const [loading,setloading]=useState(false)
-    const {setNewMessage}=useStore()
     const navigate=useNavigate()
     const formdata=new FormData;
     const handleSubmit = async () => {
@@ -19,7 +19,7 @@ export const AddConcern = () => {
         try {
             const token=JSON.parse(sessionStorage.getItem('token'))
             console.log(token.token)
-            const response = await fetch('http://localhost:3000/addconcern', {
+            const response = await fetch(`http://localhost:3000/${(props.data.new)?'addconcern':'editconcern'}`, {
             method: 'PUT',
             headers:{'authorization':token.token},
             body:formdata
@@ -29,7 +29,9 @@ export const AddConcern = () => {
         if(res){
             setloading(false)
             if(res.success){
-                setNewMessage('added successfully')
+                setNewMessage(res.message)
+                setUserData(res.data)
+                setRefresh(refresh?false:true)
                 navigate('/myconcerns')
             }
         }
@@ -42,15 +44,15 @@ return (
     {loading&&<Loading/>}
     <div className='add-concern'>
         <div className="title-cover"></div>
-        <div className="card-title"><h2>New Concern</h2></div>
+        <div className="card-title"><h2>{props.data.title}</h2></div>
         <div className="form-body">
-        <div class="input-wrapper">
-            <input class="input-box" type="text" placeholder="Concern" onChange={(e)=>{setConcern({...concern,title:e.target.value})}}/>
-            <span class="underline"></span>
+        <div className="input-wrapper">
+            <input className="input-box" type="text" placeholder='concern' onChange={(e)=>{setConcern({...concern,title:e.target.value})}}/>
+            <span className="underline"></span>
         </div>
         <div class="input-wrapper">
-            <input class="input-box" type="text" placeholder="Description" onChange={(e)=>{setConcern({...concern,description:e.target.value})}}/>
-            <span class="underline"></span>
+            <input className="input-box" type="text" placeholder="Description"  onChange={(e)=>{setConcern({...concern,description:e.target.value})}}/>
+            <span className="underline"></span>
         </div>
             <select name="" id="dropdown" onChange={(e)=>{setConcern({...concern,block:e.target.value})}}>
                 <option value="1">CSE</option>
@@ -62,12 +64,12 @@ return (
                 <option value="7">Pharmacy</option>
                 <option value="8">polytechnic</option>
             </select>
-        <div class="input-wrapper">
-            <input class="input-box" type="text" placeholder="Location" onChange={(e)=>{setConcern({...concern,location:e.target.value})}}/>
-            <span class="underline"></span>
+        <div className="input-wrapper">
+            <input className="input-box" type="text" placeholder="Location"  onChange={(e)=>{setConcern({...concern,location:e.target.value})}}/>
+            <span className="underline"></span>
         </div>
-            <label class="file-upload" for="file">
-                <input type="file" id="file" multiple onChange={(e)=>{setConcern({...concern,images:e.target.files})}}/>
+            <label className="file-upload" for="file">
+                <input type="file" id="file" multiple={false} onChange={(e)=>{setConcern({...concern,images:e.target.files})}}/>
             </label>
         </div>
         <button className='submit' onClick={handleSubmit}>submit</button>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useStore from '../src/store/Store'
 
 export const Message = () => {
-    const {message}=useStore()
+    const {message,setNewMessage}=useStore()
     const [classname,setclassname]=useState('')
     useEffect(()=>{
         if(message===''){
@@ -12,6 +12,7 @@ export const Message = () => {
             setclassname('start')
             setTimeout(() => {
                 setclassname('hide')
+                setNewMessage('')
             }, 3000);
         }
     },[message])

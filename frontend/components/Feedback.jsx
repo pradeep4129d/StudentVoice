@@ -28,7 +28,6 @@ return (
         {!(login||token)?(
             <div className='l-btn'>
                 <p>Oops..nothing here</p>
-                <button className='login-btn' onClick={()=>{navigate('/profile/auth')}}>Login</button>
             </div>
         ):(
             (admin)?(

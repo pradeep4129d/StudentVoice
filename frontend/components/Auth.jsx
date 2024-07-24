@@ -5,7 +5,7 @@ import { Loading } from './Loading';
 
 export const Auth = () => {
     const [credentials,setCredentials] =useState({username:'',password:''})
-    const {setLogin,setAdmin,setNewMessage}=useStore();
+    const {setLogin,setAdmin,setNewMessage,setUserData}=useStore();
     const [isloading,setIsloading]=useState(false)
     const navigate=useNavigate()
 return (
@@ -37,6 +37,7 @@ return (
                     console.log(res)
                     if(res.login){
                         setNewMessage('Login successful')
+                        setUserData(res.data.data)
                         setIsloading(false)
                         setLogin(true)
                         setAdmin(res.admin)
