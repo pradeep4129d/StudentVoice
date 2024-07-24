@@ -78,7 +78,8 @@
         justify-content: space-between;
         align-items: center;
         border-radius: 5px;
-        box-shadow: -5px -5px 30px #c0bdbd;
+        box-shadow: -5px -20px 40px #6e6d6d;
+        z-index: 99;
     }
     .curve{
         position: absolute;
@@ -101,11 +102,11 @@
     }
     .cover{
         width: 100%;
-        height: 6px;
+        height: 7px;
         position: absolute;
         top: 0;
         left: 0;
-        background: #cdcaca;
+        background: #969595;
     }
     .center{
         position: absolute;
@@ -114,7 +115,7 @@
         transform: translate(-50%);
         width: 42px;
         height: 30px;
-        background: #cdcaca;
+        background: #969595;
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
     }
@@ -316,6 +317,7 @@
         color: #ffffff;
         background: #f56e0f;
         box-shadow: 2px 2px 8px #6e6d6d;
+        z-index: 15;
     }
     .add>ion-icon{
         font-size: 20px;
@@ -333,7 +335,7 @@
         justify-content: space-around;
         align-items: center;
         flex-direction: column;
-        z-index: 10;
+        z-index: 12;
         border-radius: 10px;
         box-shadow: 2px 2px 30px #b5b3b3;
     }
@@ -357,13 +359,19 @@
         width: 100%;
         height: 100%;
     }
+    body{
+        position: relative;
+    }
     .concern-container{
+        position: absolute;
         width: 100%;
         height: 100%;
         overflow-y: scroll;
         display: flex;
-        justify-content: center;
-        align-items: start;
+        justify-content: start;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
         margin-top: 10px;
     }
     .concern-card img{
@@ -396,6 +404,7 @@
         left: -2px;
         background: #ffffff;
         border-radius: 20px;
+        border: 1px solid #f56e0f;
     }
     .image>img{
         width: 100%;
@@ -404,13 +413,13 @@
     }
     .concern-title{
         width: inherit;
-        padding-left: 6%;
+        padding-left: 2%;
         margin-top: -10px;
     }
     .desc,.progress{
         margin: 0;
         padding-left: 6%;
-        padding-right: 4%;
+        padding-right: 5%;
         width: inherit;
         margin-top: -20px;
     }
@@ -426,7 +435,82 @@
         align-items:center;
         margin-top: -15px;
     }
-    
+    .progress{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+    }
+    .global>p{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 10px;
+    }
+    .menu{
+        position: absolute;
+        top: -4px;
+        right: -3px;
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;    
+        align-items: center;
+        border: 1px solid #f56e0f;
+    }
+    .menu-icon{
+        border: none;
+        background: #fff;
+        border-radius: 100%;
+        width: 40px;
+        height: 40px;
+        z-index: 10;
+    }
+    .editBtn{
+        top: 45px;
+        animation: drop .5s ease;
+        display: none;
+    }
+    .editBtn.t{
+        display: block;
+    }
+    .menu-icon>ion-icon{
+        color: #f56e0f;
+    }
+    p>ion-icon{
+        color: #f56e0f;
+    }
+    @keyframes drop {
+        0%{
+            top:0;
+        }
+        100%{
+            top: 45px;
+        }
+    }
+    @keyframes drop2 {
+        0%{
+            top: 0;
+        }
+        100%{
+            top: 90px;
+        }
+        
+    }
+    .username{
+        color: #f56e0f;
+        height: 0px;
+    }
+    .update{
+        color: #ffffff;
+        background: #f56e0f;
+        border: none;
+        border-radius: 5px;
+        padding:5px 10px;
+        font-weight: 600;
+    }
 }
 /* Medium devices (tablets, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {

@@ -12,10 +12,13 @@ import { Message } from '../components/Message.jsx'
 import { AddConcern } from '../components/AddConcern.jsx'
 
 function App() {
-  const {login,setLogin,setNewMessage}=useStore()
+  const {login,setLogin,setNewMessage,setAdmin}=useStore()
   const token=JSON.parse(sessionStorage.getItem('token'))
   useEffect(()=>{
     const token=JSON.parse(sessionStorage.getItem('token'))
+    if(token){
+      token.admin&&setAdmin(token.admin)
+    }
   },[])
   return (
     <>
@@ -27,7 +30,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Global/>}/>
         <Route path='/myconcerns' element={<Myconcerns/>}>
-            <Route path='/myconcerns/addconcern' element={<AddConcern/>}/>
+            <Route path='/myconcerns/addconcern' element={<AddConcern data={{title:'New Concern',new:true,admintab:false}}/>}/>
+            <Route path='/myconcerns/editconcern' element={<AddConcern data={{title:'Edit Concern',new:false,admintab:false}}/>}/>
+            <Route path='/myconcerns/updateconcern' element={<AddConcern data={{title:'Edit Concern',new:false,admintab:false}}/>}/>
         </Route>
         <Route path='/feedback' element={<Feedback/>}/>
         <Route path='/solved' element={<Solved/>}/>
