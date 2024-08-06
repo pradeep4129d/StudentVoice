@@ -29,13 +29,6 @@ const userSchema=mongoose.Schema({
     concerns:[{type:concernSchema,default:[]}],
     liked:[{type:String,default:[]}]
 })
-const feedbackSchema=mongoose.Schema({
-    title:{
-        type:String,
-        required:true
-    },
-    images:{type:Buffer,default:[]}
-})
 const adminSchema=mongoose.Schema({
     username:{
         type:String,
@@ -49,8 +42,7 @@ const adminSchema=mongoose.Schema({
     },
     block:{
         type:String
-    },
-    feedbackposts:[{type:feedbackSchema,default:[]}]
+    }
 })
 const adminmodel=mongoose.model('adminmodel',adminSchema)
 const usermodel=mongoose.model('usermodel',userSchema)
