@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Auth } from '../components/Auth'
-import { Feedback } from '../components/Feedback'
 import Global from '../components/Global'
 import Myconcerns from '../components/Myconcerns'
 import { Profile } from '../components/Profile'
@@ -29,12 +28,11 @@ function App() {
       }} className='logout'><ion-icon name="log-out-outline"></ion-icon></span>}
       <Routes>
         <Route path='/' element={<Global/>}/>
-        <Route path='/myconcerns' element={<Myconcerns/>}>
+        <Route  path='/myconcerns' element={<Myconcerns/>}>
             <Route path='/myconcerns/addconcern' element={<AddConcern data={{title:'New Concern',new:true,admintab:false}}/>}/>
             <Route path='/myconcerns/editconcern' element={<AddConcern data={{title:'Edit Concern',new:false,admintab:false}}/>}/>
             <Route path='/myconcerns/updateconcern' element={<AddConcern data={{title:'Edit Concern',new:false,admintab:false}}/>}/>
         </Route>
-        <Route path='/feedback' element={<Feedback/>}/>
         <Route path='/solved' element={<Solved/>}/>
         <Route path='/profile' element={<Profile/>}>
           <Route path='/profile/auth' element={<Auth/>}/>
