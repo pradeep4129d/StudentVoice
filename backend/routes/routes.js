@@ -16,6 +16,33 @@ const verifyToken = (req, res, next) => {
     next();
     });
 };
+router.put('/updateadmin',verifyToken,async(req, res) => {
+    try {
+        const {password}=req.body;
+        const admin=await adminmodel.findOne({_id:req.userId})
+        if(admin){
+            admin.password=password;
+        }
+        await user.save();
+        res.status(200).json({ success: true ,message:'updated successfull',data:admin});
+    } catch (error) {
+        res.status(400).send({success:false,msg:error.message})
+    }
+});
+router.put('/updateuser',verifyToken,async(req, res) => {
+    try {
+        const {password}=req.body;
+        console.log(password)
+        const user=await usermodel.findOne({_id:req.userId})
+        if(user){
+            user.password=password;
+            await user.save()
+            res.status(200).json({ success: true ,message:'updated successfull',data:user});
+        }
+    } catch (error) {
+        res.status(400).send({success:false,message:error.message})
+    }
+});
 router.put('/updateconcern',async(req, res) => {
     try {
         const Id=req.body.Id
@@ -196,14 +223,14 @@ router.delete('/deleteconcern', async(req, res) => {
 })
 router.put('/addconcern', upload.any(),verifyToken, async(req, res) => {
     try {
-        const {title,description,block,location}=JSON.parse(req.body.details)
+        const {title,description,block,location,public}=JSON.parse(req.body.details)
         const images=[]
         for(let i=0;i<req.files.length;i++) {
             images.push(req.files[i].buffer)
         }
         const updateduser= await usermodel.findOneAndUpdate(
             { _id:req.userId },
-            {  $push: { concerns:{title,description,block,location,images}} },
+            {  $push: { concerns:{title,description,block,location,public,images}} },
             { new: true }
         );
         if (!updateduser) {
@@ -250,5 +277,4 @@ router.post('/login',async(req,res)=>{
         }
 }
 )
-
 module.exports=router
