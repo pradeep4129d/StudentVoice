@@ -8,6 +8,8 @@ export const Context=({children})=>{
     const [refresh,setrefresh]=useState(false)
     const [index,setindex]=useState(0)
     const [userdata,setuserdata]=useState({concerns:[]})
+    const [concerns,setConcerns]=useState([])
+    const [solved,setSolved]=useState([])
     const setIndex=(data)=>{
         setindex(data)
     }
@@ -27,7 +29,7 @@ export const Context=({children})=>{
         setrefresh(data)
     }
     return (
-        <ContextProvider.Provider value={{login,setLogin,admin,setAdmin,message,setNewMessage,refresh,setRefresh,userdata,setUserData,index,setIndex}}>
+        <ContextProvider.Provider value={{login,setLogin,admin,setAdmin,message,setNewMessage,refresh,setRefresh,userdata,setUserData,index,setIndex,concerns,setConcerns,solved,setSolved}}>
         {children}
         </ContextProvider.Provider>
     )
