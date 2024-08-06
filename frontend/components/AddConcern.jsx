@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 export const AddConcern = (props) => {
     const {setNewMessage,setUserData,userdata,index,refresh,setRefresh}=useStore()
-    const [concern,setConcern]=useState({title:'',description:'',block:'1',location:'',images:[],index:(props.data.new)?'':index,concernId:(props.data.new)?'':userdata.concerns[index]._id})
+    const [concern,setConcern]=useState({title:'',description:'',block:'1',location:'',public:true,images:[],index:(props.data.new)?'':index,concernId:(props.data.new)?'':userdata.concerns[index]._id})
     const [loading,setloading]=useState(false)
     const navigate=useNavigate()
     const formdata=new FormData;
@@ -33,6 +33,8 @@ export const AddConcern = (props) => {
                 setUserData(res.data)
                 setRefresh(refresh?false:true)
                 navigate('/myconcerns')
+            }else{
+                setNewMessage("server Error")
             }
         }
         } catch (error) {
@@ -67,6 +69,10 @@ return (
         <div className="input-wrapper">
             <input className="input-box" type="text" placeholder="Location"  onChange={(e)=>{setConcern({...concern,location:e.target.value})}}/>
             <span className="underline"></span>
+        </div>
+        <div className="input-wrapper">
+            <label htmlFor="public">Public</label>
+            <input name='public' defaultChecked type="checkbox" value={concern.public?false:true} onChange={(e)=>{setConcern({...concern,public:e.target.value})}}/>
         </div>
             <label className="file-upload" for="file">
                 <input type="file" id="file" multiple={false} onChange={(e)=>{setConcern({...concern,images:e.target.files})}}/>

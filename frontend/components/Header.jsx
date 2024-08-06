@@ -27,11 +27,6 @@ return (
                 const rect=element.getBoundingClientRect()
                 curveref.current.style.left=`${rect.left-19.4}px`;
             }}><ion-icon name="duplicate-outline"></ion-icon><span className="tab-names"> My Issues</span></Link>
-            <Link to='/feedback' className={'tab '+classname2[2]} onClick={(event)=>{setclassname2(['f','f','t','f','f'])
-                const element=event.target;
-                const rect=element.getBoundingClientRect()
-                curveref.current.style.left=`${rect.left-19.4}px`;
-            }}><ion-icon name="chatbubbles-outline"></ion-icon><span className="tab-names"> Feedbacks</span></Link>
             <Link to='/solved' className={'tab '+classname2[3]} onClick={(event)=>{setclassname2(['f','f','f','t','f'])
                 const element=event.target;
                 const rect=element.getBoundingClientRect()

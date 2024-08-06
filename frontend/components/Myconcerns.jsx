@@ -30,12 +30,14 @@ return (
 
 export const AdminConcernTab = () => {
     const {userdata,refresh}=useStore()
+    const [isloading,setIsloading]=useState(false)
     const [blockConcerns,setBlockConcerns]=useState([])
     console.log(blockConcerns)
     const block=['CSE',"ECE","EEE","ME","MBA","BSH","Polytech","Pharmacy"]
     useEffect(()=>{
         const token=JSON.parse(sessionStorage.getItem('token'))
         const fetchdata=async()=>{
+            setIsloading(true)
             const response =await fetch('http://localhost:3000/blockconcern',{
                 method:'POST',
                 headers: {
@@ -49,10 +51,13 @@ export const AdminConcernTab = () => {
                 if(res.success){
                     setBlockConcerns(res.concerns.sort((a,b)=>b.concern.likeCount-a.concern.likeCount))
                 }
+                setIsloading(false)
         }
         if(token){fetchdata()}
     },[refresh])
 return (
+    <>
+    {isloading&&<Loading/>}
     <div className='user-concern'>
         {(blockConcerns.length === 0) ? (
             <p>No Posts</p>
@@ -65,6 +70,7 @@ return (
         </div>
         )}
     </div>
+    </>
 )}
 
 const Myconcerns = () => {

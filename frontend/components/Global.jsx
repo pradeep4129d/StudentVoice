@@ -5,13 +5,12 @@ import { Loading } from './Loading'
 import { ConcernCard } from './ConcernCard'
 
 const Global = () => {
-  const {userdata,setUserData,refresh,login,admin,setLogin}=useStore()
+  const {userdata,setUserData,refresh,login,admin,setLogin,concerns,setConcerns}=useStore()
   const token=JSON.parse(sessionStorage.getItem('token'))
   if(token){
     setLogin(true)
   }
   const [isloading,setIsLoading]=useState(false)
-  const [concerns,setConcerns]=useState([])
   useEffect(()=>{
     const token=JSON.parse(sessionStorage.getItem('token'))
     if(token){
@@ -31,7 +30,11 @@ const Global = () => {
           setUserData(res.data)
         }
     }
-    if(token){ fetchdata()}
+    if(token){ 
+      if(!userdata.concerns.length){
+        fetchdata()
+      } 
+    }
     const fetchConcern=async()=>{
       setIsLoading(true)
       const response =await fetch('http://localhost:3000/getconcerns',{
@@ -47,7 +50,9 @@ const Global = () => {
           setConcerns(res.concerns.sort((a,b)=>b.likeCount-a.likeCount))
         }
     }
-    fetchConcern()
+    if(!concerns.length){
+      fetchConcern()
+    }
   },[refresh])
   return (
     <>

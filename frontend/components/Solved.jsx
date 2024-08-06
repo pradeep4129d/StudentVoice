@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Loading } from './Loading'
 import { ConcernCard } from './ConcernCard'
+import useStore from '../src/store/Store'
 
 const Solved = () => {
     const [isloading,setLoading]=useState(false)
-    const [concerns,setConcerns]=useState([])
+    const {solved,setSolved}=useStore()
     useEffect(()=>{
         const fetchdata=async()=>{
             setLoading(true)
@@ -18,21 +19,24 @@ const Solved = () => {
                 console.log(res)
                 if(res.success){
                     setLoading(false)
-                    setConcerns(res.concerns)
+                    setSolved(res.concerns)
                 }
             }
+           if(!solved.length){
             fetchdata()
+           }
+          
     },[])
 return (
     <>
     {isloading&&<Loading/>}
     <div className='main-tabs'>
-        {(concerns.length === 0) ? (
+        {(solved.length === 0) ? (
             <p>No Concerns</p>
         ) : (
         <div className='concern-container'>
             {
-                concerns.map((concern, index) => (
+                solved.map((concern, index) => (
                 <ConcernCard key={index} data={{title:concern.title,description:concern.description,image:concern.images,location:concern.location,block:concern.block,progress:concern.state,public:concern.public,Id:concern._id,likecount:concern.likeCount,index:index,gpage:true,admintab:false}}/>
             ))}
         </div>
