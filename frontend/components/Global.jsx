@@ -31,10 +31,15 @@ const Global = () => {
         }
     }
     if(token){ 
-      if(!userdata.concerns.length){
+      if(token.admin){
         fetchdata()
-      } 
-    }
+      }
+      else{
+          if(!userdata.concerns.length){
+            fetchdata()
+          } 
+        }
+      }
     const fetchConcern=async()=>{
       setIsLoading(true)
       const response =await fetch('http://localhost:3000/getconcerns',{

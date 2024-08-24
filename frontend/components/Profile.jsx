@@ -4,7 +4,7 @@ import { Loading } from './Loading';
 import { Link, useNavigate,Outlet } from 'react-router-dom';
 
 export const Profile = () => {
-    const {login,userdata,setNewMessage,setUserData}=useStore();
+    const {login,userdata,setNewMessage,setUserData,blockConcerns}=useStore();
     const [isloading,setIsLoading]=useState(false)
     const [password,setPassword]=useState(userdata.password)
     const navigate=useNavigate()
@@ -58,8 +58,8 @@ return (
                         <button onClick={handleSubmit}>Edit</button>
                         </div>
                         <div className="post-count">
-                           <p> Your Posts</p>
-                           <div onClick={()=>{navigate('/myconcerns')}} id='l'>{userdata.concerns.length}<ion-icon name="chevron-forward-outline"></ion-icon>
+                           <p>{(!token.admin)?<>Your Posts</>:<>Block Concerns</>}</p>
+                           <div onClick={()=>{navigate('/myconcerns')}} id='l'>{(!token.admin)?userdata.concerns.length:blockConcerns.length}<ion-icon name="chevron-forward-outline"></ion-icon>
                            </div></div>
                         <div className="post-count">
                            <p>Solved</p>

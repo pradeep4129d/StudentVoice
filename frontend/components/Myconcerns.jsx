@@ -29,9 +29,8 @@ return (
 )}
 
 export const AdminConcernTab = () => {
-    const {userdata,refresh}=useStore()
+    const {userdata,refresh,blockConcerns,setBlockConcerns}=useStore()
     const [isloading,setIsloading]=useState(false)
-    const [blockConcerns,setBlockConcerns]=useState([])
     console.log(blockConcerns)
     const block=['CSE',"ECE","EEE","ME","MBA","BSH","Polytech","Pharmacy"]
     useEffect(()=>{

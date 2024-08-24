@@ -45,6 +45,10 @@ return (
                         sessionStorage.setItem('token',JSON.stringify(tokendata))
                         navigate('/profile')
                     }
+                    else{
+                        setIsloading(false)
+                        setNewMessage(res.msg)
+                    }
                 }
                 catch(e){
                     console.log(e)
