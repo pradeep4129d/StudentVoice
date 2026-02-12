@@ -16,7 +16,7 @@ app.use((req, res, next) => {
     next();
   });
 app.use('/',router);
-mongoose.connect("mongodb+srv://admin:412945@api.e8fejod.mongodb.net/studentvoice?retryWrites=true&w=majority")
+mongoose.connect(DB_URL)
 app.listen(3000,()=>{
     console.log("Server is running on port 3000");
 })
